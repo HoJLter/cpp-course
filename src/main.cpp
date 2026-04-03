@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
+#include "Application.h"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "test");
-    return 0;
+    Application app({ 1000, 1000 });
+    app.run();
 }
