@@ -3,7 +3,8 @@
 class Button {
 private:
 	sf::RectangleShape shape;
-	sf::Text content;
+	sf::Text label;
+	sf::Font font;
 
 	sf::Vector2f size;
 	sf::Vector2f coords;

@@ -1,7 +1,7 @@
 #include "Application.h"
 
 Application::Application(uint16_t width, uint16_t height):
-	start({ 300, 300 }, { 400, 400 }, "WASSUP")
+	start({ 700, 100 }, { 100, 400 }, "WASSUP")
 {
 	window.create(sf::VideoMode(width, height), "VISUALIZATION");
 	this->width = width;
