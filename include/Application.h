@@ -1,17 +1,22 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Figure.h"
+#include <cstdint>
 
 class Application {
 private:
 	sf::RenderWindow window;
-	sf::Vector2i windowSize;
+	uint16_t width;
+	uint16_t height;
+	Figure figure;
+	
 public:
-	Application(sf::Vector2i windowSize);
+	Application(uint16_t width, uint16_t height);
 	Application();
 
-	int run();
+	void run();
 private:
-	int processEvents();
-	int update();
-	int render();
+	void processEvents();
+	void update();
+	void render();
 };
