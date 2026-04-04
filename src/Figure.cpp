@@ -30,8 +30,6 @@ void Figure::handleEvent(sf::Event event) {
 		}
 		break;
 	}
-
-
 	}
 }
 

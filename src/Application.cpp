@@ -1,13 +1,11 @@
 #include "Application.h"
 
-Application::Application(uint16_t width, uint16_t height) {
+Application::Application(uint16_t width, uint16_t height):
+	start({ 300, 300 }, { 400, 400 }, "WASSUP")
+{
 	window.create(sf::VideoMode(width, height), "VISUALIZATION");
 	this->width = width;
 	this->height = height;
-}
-
-Application::Application() {
-	window.create(sf::VideoMode(400, 400), "VISUALIZATION");
 }
 
 void Application::processEvents() {
@@ -30,6 +28,7 @@ void Application::render() {
 	window.clear();
 
 	figure.render(window);
+	start.render(window);
 	
 	window.display();
 }
