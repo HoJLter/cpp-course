@@ -24,6 +24,7 @@ void Figure::handleEvent(sf::Event event) {
 		}
 		else{
 			float newScale = shape.getScale().x*(1 + delta);
+			std::cout << newScale;
 			if (newScale > 0.1) {
 				shape.scale(1 + delta, 1 + delta);
 			}

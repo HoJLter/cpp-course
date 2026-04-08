@@ -1,7 +1,7 @@
 #include "Application.h"
 
 Application::Application(uint16_t width, uint16_t height):
-	start({ 50, 20 }, { 400, static_cast<float>(height / 2) }, "START")
+	start({ 50, 20 }, {static_cast<float>(width/2), height-50.f }, "START")
 {
 	window.create(sf::VideoMode(width, height), "VISUALIZATION");
 	uiView = window.getDefaultView();

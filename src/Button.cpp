@@ -50,14 +50,6 @@ void Button::update(sf::RenderWindow& window) {
 }
 
 void Button::handleEvent(sf::Event event) {
-	if (event.type == sf::Event::Resized) {
-		sf::Vector2f curPos = shape.getPosition();
-		shape.setPosition({
-			static_cast<float>(event.size.width/2), 
-			curPos.y});
-	}
-
-
 	if (event.type == sf::Event::MouseButtonPressed &&
 		event.mouseButton.button == sf::Mouse::Left) {
 		sf::Vector2f mousePos = { 
