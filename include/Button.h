@@ -1,17 +1,23 @@
 #include "SFML/Graphics.hpp"
 
+struct ButtonParams {
+	bool verticalCenter = false;
+};
+
+
 class Button {
 private:
 	sf::RectangleShape shape;
 	sf::Text label;
 	sf::Font font;
+	
+	ButtonParams params;
 
-	sf::Vector2f size;
-	sf::Vector2f coords;
+	bool isPressed;
 
 public:
-	Button(sf::Vector2f size, sf::Vector2f coords, std::string text);
-	void update();
-	void handleEvent(sf::Event event, sf::RenderWindow& window);
-	void render(sf::RenderWindow& window);
+	Button(sf::Vector2f size, sf::Vector2f coords, std::string text, const ButtonParams& params чч);
+	void update(sf::RenderWindow& window);
+	void handleEvent(sf::Event event);
+	void render(sf::RenderWindow& window, sf::View);
 };

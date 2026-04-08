@@ -1,11 +1,16 @@
 #include "Application.h"
 
 Application::Application(uint16_t width, uint16_t height):
-	start({ 700, 100 }, { 100, 400 }, "WASSUP")
+	start({ 50, 20 }, { 400, static_cast<float>(height / 2) }, "START")
 {
 	window.create(sf::VideoMode(width, height), "VISUALIZATION");
-	this->width = width;
-	this->height = height;
+	uiView = window.getDefaultView();
+	mainView = sf::View(sf::FloatRect(0.f, 0.f, 
+		static_cast<float>(width), 
+		static_cast<float>(height))
+	);
+
+
 }
 
 void Application::processEvents() {
@@ -15,26 +20,41 @@ void Application::processEvents() {
 		if (event.type == sf::Event::Closed) {
 			window.close();
 		}
+		if (event.type == sf::Event::Resized) {
+			sf::FloatRect visibleArea(0.f, 0.f,
+				static_cast<float>(event.size.width),
+				static_cast<float>(event.size.height));
+			sf::FloatRect uiArea(0.f, 0.f,
+				static_cast<float>(event.size.width),
+				static_cast<float>(event.size.height));
+
+			mainView = sf::View(visibleArea);
+			uiView = sf::View(uiArea);
+			
+		}
 
 		figure.handleEvent(event);
+		start.handleEvent(event);
 	}	
 }
 
 void Application::update() {
 	figure.update();
+	start.update(window);
 }
 
 void Application::render() {
 	window.clear();
 
 	figure.render(window);
-	start.render(window);
+	start.render(window, uiView);
 	
 	window.display();
 }
 
 void Application::run() {
 	while (window.isOpen()) {
+		window.setView(mainView);
 		processEvents();
 		update();
 		render();
