@@ -11,6 +11,7 @@ private:
 
 public:
 	Label(std::string str, sf::Vector2f coords, uint16_t charSize);
-
+	
+	void switchVisibility();
 	void render(sf::RenderWindow& window, sf::View view);
 };

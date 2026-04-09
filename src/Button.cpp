@@ -1,7 +1,10 @@
 #include "Button.h"
 #include <iostream>
+#include <functional>
 
-Button::Button(sf::Vector2f padding, sf::Vector2f coords, std::string text) {
+Button::Button(sf::Vector2f padding, sf::Vector2f coords, std::string text, std::function<void()> callback) {
+	this->callback = callback;
+	
 	//LABEL
 	isPressed = false;
 
@@ -64,6 +67,7 @@ void Button::handleEvent(sf::Event event) {
 		}
 	}
 	else if (event.type == sf::Event::MouseButtonReleased) {
+		callback();
 		isPressed = false;
 	}
 }

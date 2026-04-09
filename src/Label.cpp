@@ -15,6 +15,10 @@ Label::Label(std::string str, sf::Vector2f coords, uint16_t charSize) {
 	content.setPosition(coords);
 }
 
+void Label::switchVisibility() {
+	isVisible = !isVisible;
+}
+
 void Label::render(sf::RenderWindow& window, sf::View uiView) {
 	if (isVisible) {
 		sf::View curView = window.getView();

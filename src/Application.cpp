@@ -1,8 +1,11 @@
 #include "Application.h"
 
 Application::Application(uint16_t width, uint16_t height):
-	start({ 50, 20 }, {static_cast<float>(width/2), height-50.f }, "START"),
-	start_label("Enter count of dots.", {static_cast<float>(width/2), height-150.f}, 18)
+	start_label("Enter count of dots.", {static_cast<float>(width)/2, height-150.f}, 18),
+	start({ 50, 20 }, {static_cast<float>(width)/2, height-50.f }, "START",
+		[this]() {
+			this->start_label.switchVisibility();
+		})
 {
 	window.create(sf::VideoMode(width, height), "VISUALIZATION");
 	uiView = window.getDefaultView();

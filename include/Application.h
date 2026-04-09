@@ -10,8 +10,8 @@ private:
 	sf::RenderWindow window;
 
 	Figure figure;
-	Button start;
 	Label start_label;
+	Button start;
 
 	sf::View mainView;
 	sf::View uiView;
