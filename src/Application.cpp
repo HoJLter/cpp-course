@@ -1,7 +1,8 @@
 #include "Application.h"
 
 Application::Application(uint16_t width, uint16_t height):
-	start({ 50, 20 }, {static_cast<float>(width/2), height-50.f }, "START")
+	start({ 50, 20 }, {static_cast<float>(width/2), height-50.f }, "START"),
+	start_label("Enter count of dots.", {static_cast<float>(width/2), height-150.f}, 18)
 {
 	window.create(sf::VideoMode(width, height), "VISUALIZATION");
 	uiView = window.getDefaultView();
@@ -48,6 +49,7 @@ void Application::render() {
 
 	figure.render(window);
 	start.render(window, uiView);
+	start_label.render(window, uiView);
 	
 	window.display();
 }

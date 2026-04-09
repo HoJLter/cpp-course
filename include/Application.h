@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Figure.h"
 #include "Button.h"
+#include "Label.h"
 #include <cstdint>
 
 class Application {
@@ -10,6 +11,7 @@ private:
 
 	Figure figure;
 	Button start;
+	Label start_label;
 
 	sf::View mainView;
 	sf::View uiView;

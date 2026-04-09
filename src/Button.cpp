@@ -7,7 +7,7 @@ Button::Button(sf::Vector2f padding, sf::Vector2f coords, std::string text) {
 
 	label.setString(text);
 	if (!font.loadFromFile("assets/pixel-font.otf")) {
-		throw std::runtime_error("[ERROR] Font loading failed");
+		throw std::runtime_error("[ERROR] Font loading was failed");
 	}
 	label.setFont(font);
 	label.setColor(sf::Color::Red);

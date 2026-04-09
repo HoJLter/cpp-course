@@ -10,8 +10,8 @@ private:
 	bool isPressed;
 
 public:
-	Button(sf::Vector2f size, sf::Vector2f coords, std::string text);
+	Button(sf::Vector2f padding, sf::Vector2f coords, std::string text);
 	void update(sf::RenderWindow& window);
 	void handleEvent(sf::Event event);
-	void render(sf::RenderWindow& window, sf::View);
+	void render(sf::RenderWindow& window, sf::View view);
 };
