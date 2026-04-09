@@ -1,5 +1,8 @@
 #include "Application.h"
 
+
+
+
 Application::Application(uint16_t width, uint16_t height):
 	start_label("Enter count of dots.", {static_cast<float>(width)/2, height-150.f}, 18),
 	start({ 50, 20 }, {static_cast<float>(width)/2, height-50.f }, "START",
@@ -7,6 +10,8 @@ Application::Application(uint16_t width, uint16_t height):
 			this->start_label.switchVisibility();
 		})
 {
+	appState = AppState::Base;
+
 	window.create(sf::VideoMode(width, height), "VISUALIZATION");
 	uiView = window.getDefaultView();
 	mainView = sf::View(sf::FloatRect(0.f, 0.f, 
@@ -63,5 +68,22 @@ void Application::run() {
 		processEvents();
 		update();
 		render();
+	}
+}
+
+void Application::enterState(AppState state) {
+	switch (state) {
+	case AppState::Base: {
+
+	};
+	case AppState::DotsCountInput: {
+
+	};
+	case AppState::DotsPosInput: {
+
+	};
+	case AppState::Result: {
+
+	};
 	}
 }
