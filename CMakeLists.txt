@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
+set(CMAKE_CXX_STANDARD 17)
 
 project (cpp-course)
 
@@ -7,7 +8,7 @@ set(CMAKE_PREFIX_PATH "external/")
 find_package(SFML REQUIRED COMPONENTS graphics system window)
 
 add_executable(app 
-	"src/core/main.cpp"
+	"src/main.cpp"
 	"src/core/Application.cpp"
 	"src/ui/Button.cpp"
 	"src/ui/Label.cpp"
@@ -16,7 +17,7 @@ add_executable(app
 	"src/scenes/DotCountInputScene.cpp"
 	"src/scenes/DotInputScene.cpp"
 	"src/scenes/ResultScene.cpp"
- "include/ui/InputField.h" "src/ui/InputField.cpp")
+ "include/ui/InputField.h" "src/ui/InputField.cpp" "src/core/SceneManager.cpp")
 
 target_include_directories(app PRIVATE include)
 target_link_libraries(app PRIVATE sfml-graphics sfml-system sfml-window)
