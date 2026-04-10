@@ -5,8 +5,8 @@
 
 class InitialScene : public Scene {
 private:
-	Label startLabel;
 	Button startButton;
+	Label startLabel;
 
 public:
 	InitialScene(sf::Vector2u windowSize);

@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <cstdint>
+#include "core/SceneSwitcher.h"
 #include "Scenes.h"
 
 
@@ -13,8 +14,8 @@ public:
 	Application(uint16_t width, uint16_t height);
 
 	void run();
-	void switchScene(std::unique_ptr<Scene> scene);
 private:
+	void switchScene(SceneID id);
 	void processEvents();
 	void update();
 	void render();

@@ -5,6 +5,23 @@ Application::Application(uint16_t width, uint16_t height){
 	curScene = std::make_unique<InitialScene>(window.getSize());
 }
 
+void Application::switchScene(SceneID id) {
+	switch (id) {
+		case SceneID::Initital:{
+			curScene = std::make_unique<InitialScene>(window.getSize());
+		}
+		case SceneID::DotCountInput: {
+			curScene = std::make_unique<DotCountInputScene>(window.getSize());
+		}
+		case SceneID::DotInput: {
+			curScene = std::make_unique<InitialScene>(window.getSize());
+		}
+		case SceneID::Result: {
+			curScene = std::make_unique<InitialScene>(window.getSize());
+		}
+	}
+}
+
 void Application::processEvents() {
 	sf::Event event;
 
