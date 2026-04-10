@@ -16,7 +16,7 @@ add_executable(app
 	"src/scenes/DotCountInputScene.cpp"
 	"src/scenes/DotInputScene.cpp"
 	"src/scenes/ResultScene.cpp"
-)
+ "include/ui/InputField.h" "src/ui/InputField.cpp")
 
 target_include_directories(app PRIVATE include)
 target_link_libraries(app PRIVATE sfml-graphics sfml-system sfml-window)
