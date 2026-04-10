@@ -1,6 +1,6 @@
-#include "Button.h"
 #include <iostream>
 #include <functional>
+#include "ui/Button.h"
 
 Button::Button(sf::Vector2f padding, sf::Vector2f coords, std::string text, std::function<void()> callback) {
 	this->callback = callback;
@@ -26,14 +26,8 @@ Button::Button(sf::Vector2f padding, sf::Vector2f coords, std::string text, std:
 
 }
 
-void Button::update(sf::RenderWindow& window) {
-	sf::Vector2i curPosInt = sf::Mouse::getPosition(window);
-	sf::Vector2f curPosFloat(
-		static_cast<float>(curPosInt.x),
-		static_cast<float>(curPosInt.y)
-	);	
-	
-	bool isHovered = shape.getGlobalBounds().contains(curPosFloat);
+void Button::update(sf::Vector2f mousePos) {
+	bool isHovered = shape.getGlobalBounds().contains(mousePos);
 	sf::Vector2f scale = shape.getScale();
 	if (isHovered) {
 		shape.setFillColor(sf::Color::Cyan);
@@ -72,10 +66,7 @@ void Button::handleEvent(sf::Event event) {
 	}
 }
 
-void Button::render(sf::RenderWindow& window, sf::View uiView) {
-	sf::View curView = window.getView();
-	window.setView(uiView);
+void Button::render(sf::RenderWindow& window) {
 	window.draw(shape);
 	window.draw(label);
-	window.setView(curView);
 }

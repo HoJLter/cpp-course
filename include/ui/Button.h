@@ -12,7 +12,7 @@ private:
 
 public:
 	Button(sf::Vector2f padding, sf::Vector2f coords, std::string text, std::function<void()> callback);
-	void update(sf::RenderWindow& window);
+	void update(sf::Vector2f mousePos);
 	void handleEvent(sf::Event event);
-	void render(sf::RenderWindow& window, sf::View view);
+	void render(sf::RenderWindow& window);
 };

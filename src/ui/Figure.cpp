@@ -1,5 +1,5 @@
-#include "Figure.h"
 #include <iostream>
+#include "ui/Figure.h"
 
 
 Figure::Figure() {

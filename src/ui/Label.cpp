@@ -1,10 +1,12 @@
-#include "Label.h"
+#include "ui/Label.h"
 
 
 Label::Label(std::string str, sf::Vector2f coords, uint16_t charSize) {
 	if (!font.loadFromFile("assets/pixel-font.otf")) {
 		throw std::runtime_error("[ERROR] Font loading was failed.");
 	}
+	isVisible = true;
+
 	content.setFont(font);
 	content.setString(str);
 	content.setCharacterSize(charSize);
@@ -19,11 +21,8 @@ void Label::switchVisibility() {
 	isVisible = !isVisible;
 }
 
-void Label::render(sf::RenderWindow& window, sf::View uiView) {
+void Label::render(sf::RenderWindow& window) {
 	if (isVisible) {
-		sf::View curView = window.getView();
-		window.setView(uiView);
 		window.draw(content);
-		window.setView(curView);
 	}
 }

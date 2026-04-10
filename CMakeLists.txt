@@ -6,7 +6,17 @@ set(CMAKE_PREFIX_PATH "external/")
 
 find_package(SFML REQUIRED COMPONENTS graphics system window)
 
-add_executable(app src/main.cpp "include/Application.h" "src/Application.cpp" "src/Figure.cpp" "include/Figure.h" "src/Button.cpp" "include/Button.h" "include/Label.h" "src/Label.cpp")
+add_executable(app 
+	"src/core/main.cpp"
+	"src/core/Application.cpp"
+	"src/ui/Button.cpp"
+	"src/ui/Label.cpp"
+	"src/ui/Figure.cpp"
+	"src/scenes/InitialScene.cpp"
+	"src/scenes/DotCountInputScene.cpp"
+	"src/scenes/DotInputScene.cpp"
+	"src/scenes/ResultScene.cpp"
+)
 
 target_include_directories(app PRIVATE include)
 target_link_libraries(app PRIVATE sfml-graphics sfml-system sfml-window)
