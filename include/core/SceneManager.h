@@ -22,7 +22,7 @@ public:
 	void requestSwitchScene(SceneID id);
 	void switchScene();
 
-	void handleEvent();
+	void handleEvent(const sf::Event& event);
 	void update();
 	void render();
 };

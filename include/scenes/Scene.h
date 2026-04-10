@@ -1,8 +1,12 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include "core/SceneManager.h"
 
 class Scene {
 public:
+	SceneManager& sceneManager;
+
+	Scene(SceneManager& sm) : sceneManager(sm) {};
 	virtual ~Scene() = default;
 
 	virtual void handleEvent(const sf::Event& event) = 0;

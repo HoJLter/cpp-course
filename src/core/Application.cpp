@@ -1,25 +1,8 @@
 #include "core/Application.h"
 
-Application::Application(uint16_t width, uint16_t height){
+Application::Application(uint16_t width, uint16_t height):
+sceneManager(window){
 	window.create(sf::VideoMode(width, height), "VISUALIZATION");
-	curScene = std::make_unique<InitialScene>(window.getSize());
-}
-
-void Application::switchScene(SceneID id) {
-	switch (id) {
-		case SceneID::Initital:{
-			curScene = std::make_unique<InitialScene>(window.getSize());
-		}
-		case SceneID::DotCountInput: {
-			curScene = std::make_unique<DotCountInputScene>(window.getSize());
-		}
-		case SceneID::DotInput: {
-			curScene = std::make_unique<InitialScene>(window.getSize());
-		}
-		case SceneID::Result: {
-			curScene = std::make_unique<InitialScene>(window.getSize());
-		}
-	}
 }
 
 void Application::processEvents() {
@@ -30,18 +13,18 @@ void Application::processEvents() {
 			window.close();
 		}
 
-		curScene->handleEvent(event);
+		sceneManager.handleEvent(event);
 	}
 }
 
 void Application::update() {
-	curScene->update(window);
+	sceneManager.update();
 }
 
 void Application::render() {
 	window.clear();
 
-	curScene->render(window);
+	sceneManager.render();
 
 	window.display();
 }

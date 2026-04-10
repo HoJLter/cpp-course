@@ -8,11 +8,11 @@ InputField::InputField(sf::Vector2f size, sf::Vector2f coords) {
 	isActive = false;
 	isCursorVisible = false;
 
-	shape.setOrigin({ size.x / 2, size.y / 2 });
+	shape.setOrigin({ size.x / 2.f, size.y / 2.f });
 	shape.setPosition(coords);
 
 	enteredText.setFont(font);
-	enteredText.setOrigin({ 0.f, size.y / 2});
+	enteredText.setOrigin({ 0.f, size.y / 2.f});
 	enteredText.setPosition({coords.x+20, coords.y});
 	enteredText.setCharacterSize(14);
 	enteredText.setString("Enter something");
@@ -20,7 +20,10 @@ InputField::InputField(sf::Vector2f size, sf::Vector2f coords) {
 
 void InputField::handleEvent(const sf::Event& event) {
 	if (event.type == sf::Event::MouseButtonPressed) {
-		sf::Vector2f clickCoords = { event.mouseButton.x, event.mouseButton.y };
+		sf::Vector2f clickCoords = { 
+			static_cast<float>(event.mouseButton.x), 
+			static_cast<float>(event.mouseButton.y)
+		};
 		if (shape.getGlobalBounds().contains(clickCoords)) {
 			isActive = true;
 		}
