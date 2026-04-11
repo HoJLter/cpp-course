@@ -9,7 +9,7 @@ private:
 	Label startLabel;
 
 public:
-	InitialScene(sf::Vector2u windowSize, SceneManager& sceneManager);
+	InitialScene(sf::Vector2u windowSize, ISceneSwitcher& sceneSwitcher);
 
 	void handleEvent(const sf::Event& event) override;
 	void update(sf::RenderWindow& window) override;

@@ -4,9 +4,9 @@
 
 class Scene {
 public:
-	SceneManager& sceneManager;
+	ISceneSwitcher& sceneSwitcher;
 
-	Scene(SceneManager& sm) : sceneManager(sm) {};
+	Scene(ISceneSwitcher& ss) : sceneSwitcher(ss) {};
 	virtual ~Scene() = default;
 
 	virtual void handleEvent(const sf::Event& event) = 0;
