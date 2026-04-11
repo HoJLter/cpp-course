@@ -1,6 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-#include "core/SceneManager.h"
+#include "core/ISceneSwitcher.h"
 
 class Scene {
 public:

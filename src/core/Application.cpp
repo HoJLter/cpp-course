@@ -1,8 +1,8 @@
 #include "core/Application.h"
 
 Application::Application(uint16_t width, uint16_t height):
+window(sf::VideoMode(width, height), "VISUALIZATION"),
 sceneManager(window){
-	window.create(sf::VideoMode(width, height), "VISUALIZATION");
 }
 
 void Application::processEvents() {

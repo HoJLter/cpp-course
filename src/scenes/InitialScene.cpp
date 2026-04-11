@@ -1,11 +1,12 @@
 #include "scenes/InitialScene.h"
+#include <iostream>
 
 InitialScene::InitialScene(sf::Vector2u windowSize, ISceneSwitcher& ss): 
 	Scene(ss),
 	startLabel("Enter count of dots.",
-		{ static_cast<float>(windowSize.x) / 2, windowSize.y - 150.f },
+		{ static_cast<float>(windowSize.x) / 2.f, windowSize.y - 150.f },
 		18),
-	startButton({ 50, 20 }, { static_cast<float>(windowSize.x) / 2, windowSize.y - 50.f }, "START",
+	startButton({ 50.f, 20.f }, { static_cast<float>(windowSize.x) / 2.f, windowSize.y - 50.f }, "START",
 		[this]() {
 			sceneSwitcher.requestSwitchScene(SceneID::DotCountInput);
 		}) {

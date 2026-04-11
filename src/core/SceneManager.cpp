@@ -3,7 +3,7 @@
 
 
 SceneManager::SceneManager(sf::RenderWindow& window): window(window) {
-	curScene = std::make_unique<InitialScene>(window.getSize());
+	curScene = std::make_unique<InitialScene>(window.getSize(), *this);
 }
 
 void SceneManager::requestSwitchScene(SceneID id) {
@@ -13,20 +13,20 @@ void SceneManager::requestSwitchScene(SceneID id) {
 void SceneManager::switchScene() {
 	if (requestedScene.has_value()) {
 		switch (requestedScene.value()) {
-		case SceneID::Initital: {
-			curScene = std::make_unique<InitialScene>(window.getSize(), this);
+		case SceneID::Initial: {
+			curScene = std::make_unique<InitialScene>(window.getSize(), *this);
 			break;
 		}
 		case SceneID::DotCountInput: {
-			curScene = std::make_unique<DotCountInputScene>(window.getSize(), this);
+			curScene = std::make_unique<DotCountInputScene>(window.getSize(), *this);
 			break;
 		}
 		case SceneID::DotInput: {
-			curScene = std::make_unique<InitialScene>(window.getSize(), this);
+			curScene = std::make_unique<InitialScene>(window.getSize(), *this);
 			break;
 		}
 		case SceneID::Result: {
-			curScene = std::make_unique<InitialScene>(window.getSize(), this);
+			curScene = std::make_unique<InitialScene>(window.getSize(), *this);
 			break;
 		}
 		}

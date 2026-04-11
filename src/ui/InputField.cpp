@@ -41,7 +41,7 @@ void InputField::handleEvent(const sf::Event& event) {
 };
 
 
-void InputField::update(sf::Vector2u windowSize) {
+void InputField::update() {
 	if (cursorClock.getElapsedTime().asSeconds() >= 0.5f) {
 		isCursorVisible = !isCursorVisible;
 		cursorClock.restart();

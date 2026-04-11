@@ -1,15 +1,10 @@
 #pragma once
+#include <iostream>
 #include "Scenes.h"
+#include "core/ISceneSwitcher.h"
 #include <memory>
 #include <optional>
 
-
-enum class SceneID {
-	Initital,
-	DotCountInput,
-	DotInput,
-	Result
-};
 
 class SceneManager: public ISceneSwitcher {
 private:
@@ -25,12 +20,4 @@ public:
 	void handleEvent(const sf::Event& event);
 	void update();
 	void render();
-};
-
-
-class ISceneSwitcher {
-private:
-	std::optional<SceneID> requestedScene;
-public:
-	virtual void requestSwitchScene(SceneID id) = 0;
 };

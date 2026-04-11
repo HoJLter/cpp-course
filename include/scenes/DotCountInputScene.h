@@ -1,5 +1,5 @@
 #pragma once
-#include "Scene.h"
+#include "scenes/Scene.h"
 #include "ui/Label.h"
 #include "ui/InputField.h"
 

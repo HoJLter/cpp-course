@@ -18,6 +18,6 @@ public:
 	std::string getString();
 
 	void handleEvent(const sf::Event& event);
-	void update(sf::Vector2u windowSize);
+	void update();
 	void render(sf::RenderWindow& window);
 };
