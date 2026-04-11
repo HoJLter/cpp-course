@@ -5,6 +5,7 @@
 #include <memory>
 #include <optional>
 
+std::string sceneIdToStr(SceneID id);
 
 class SceneManager: public ISceneSwitcher {
 private:

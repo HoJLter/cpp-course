@@ -1,4 +1,5 @@
 #include "scenes/DotCountInputScene.h"
+#include "utils/Log.h"
 
 DotCountInputScene::DotCountInputScene(sf::Vector2u windowSize, ISceneSwitcher& ss) :
 	Scene(ss),

@@ -1,8 +1,10 @@
 #include "core/Application.h"
+#include "utils/Log.h"
 
 Application::Application(uint16_t width, uint16_t height):
 window(sf::VideoMode(width, height), "VISUALIZATION"),
 sceneManager(window){
+	Log::debug("Application created");
 }
 
 void Application::processEvents() {
@@ -10,10 +12,12 @@ void Application::processEvents() {
 
 	while (window.pollEvent(event)) {
 		if (event.type == sf::Event::Closed) {
+			Log::debug("Window closed");
 			window.close();
 		}
 
 		sceneManager.handleEvent(event);
+
 	}
 }
 

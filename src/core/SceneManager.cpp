@@ -1,12 +1,23 @@
 #include <memory>
 #include "core/SceneManager.h"
+#include "utils/Log.h"
 
+std::string sceneIdToStr(SceneID id) {
+	switch (id) {
+	case SceneID::Initial:  return "InitialScene";
+	case SceneID::DotCountInput: return "DotCountInputScene";
+	case SceneID::DotInput: return "DotInputScene";
+	case SceneID::Result: return "ResultScene";
+	default: return "UnknownScene";
+	}
+}
 
 SceneManager::SceneManager(sf::RenderWindow& window): window(window) {
 	curScene = std::make_unique<InitialScene>(window.getSize(), *this);
 }
 
 void SceneManager::requestSwitchScene(SceneID id) {
+	Log::debug("New scene switch request: " + sceneIdToStr(id));
 	requestedScene = id;
 }
 
@@ -30,6 +41,8 @@ void SceneManager::switchScene() {
 			break;
 		}
 		}
+		Log::debug("Scene has been switched to " + sceneIdToStr(requestedScene.value()));
+		requestedScene.reset();
 	}
 }
 

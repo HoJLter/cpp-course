@@ -1,4 +1,5 @@
 #include <iostream>
+#include "utils/Logger.h"
 #include "ui/Figure.h"
 
 
@@ -13,6 +14,7 @@ Figure::Figure() {
 
 	sf::FloatRect bounds = shape.getLocalBounds();
 	shape.setOrigin(bounds.width / 2, bounds.height / 2);
+	Log::debug("Figure was created");
 }
 
 void Figure::handleEvent(sf::Event event) {

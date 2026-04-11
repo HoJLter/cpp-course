@@ -1,5 +1,6 @@
 #include "scenes/InitialScene.h"
 #include <iostream>
+#include "utils/Log.h"
 
 InitialScene::InitialScene(sf::Vector2u windowSize, ISceneSwitcher& ss): 
 	Scene(ss),
@@ -10,6 +11,7 @@ InitialScene::InitialScene(sf::Vector2u windowSize, ISceneSwitcher& ss):
 		[this]() {
 			sceneSwitcher.requestSwitchScene(SceneID::DotCountInput);
 		}) {
+	Log::debug("Initial scene created");
 }
 
 void InitialScene::handleEvent(const sf::Event& event) {

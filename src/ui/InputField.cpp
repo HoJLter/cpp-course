@@ -1,9 +1,11 @@
 #include "ui/InputField.h"
+#include "utils/Logger.h"
 #include <iostream>
 
 InputField::InputField(sf::Vector2f size, sf::Vector2f coords) {
 	if (!font.loadFromFile("assets/pixel-font.otf")) {
-		throw std::runtime_error("[ERROR] Font loading was failed");
+		Log::error("Font loading was failed");
+		throw std::runtime_error("Font loading was failed");
 	}
 	isActive = false;
 	isCursorVisible = false;
@@ -16,6 +18,7 @@ InputField::InputField(sf::Vector2f size, sf::Vector2f coords) {
 	enteredText.setPosition({coords.x+20, coords.y});
 	enteredText.setCharacterSize(14);
 	enteredText.setString("Enter something");
+	Log::debug("Input field was created");
 };
 
 void InputField::handleEvent(const sf::Event& event) {
@@ -26,9 +29,11 @@ void InputField::handleEvent(const sf::Event& event) {
 		};
 		if (shape.getGlobalBounds().contains(clickCoords)) {
 			isActive = true;
+			Log::debug("Input field has been activated");
 		}
 		else {
 			isActive = false;
+			Log::debug("Input field has been deactivated");
 		}
 	}
 	if (isActive && event.type == sf::Event::TextEntered) {

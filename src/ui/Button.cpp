@@ -1,6 +1,7 @@
 #include <iostream>
 #include <functional>
 #include "ui/Button.h"
+#include "utils/Log.h"
 
 Button::Button(sf::Vector2f padding, sf::Vector2f coords, std::string text, std::function<void()> callback) {
 	this->callback = callback;
@@ -10,7 +11,8 @@ Button::Button(sf::Vector2f padding, sf::Vector2f coords, std::string text, std:
 
 	label.setString(text);
 	if (!font.loadFromFile("assets/pixel-font.otf")) {
-		throw std::runtime_error("[ERROR] Font loading was failed");
+		Log::error("Font loading was failed");
+		throw std::runtime_error("Font loading was failed");
 	}
 	label.setFont(font);
 	label.setColor(sf::Color::Red);
@@ -24,7 +26,7 @@ Button::Button(sf::Vector2f padding, sf::Vector2f coords, std::string text, std:
 	shape.setOrigin({ shapeBounds.width / 2, shapeBounds.height / 2 });
 	shape.setPosition(coords);
 
-
+	Log::debug("Button \"" + text + "\" was created");
 }
 
 void Button::update(sf::Vector2f mousePos) {
@@ -55,14 +57,29 @@ void Button::handleEvent(sf::Event event) {
 			static_cast<float>(event.mouseButton.y) 
 		};
 		if (shape.getGlobalBounds().contains(mousePos)) {
+			Log::debug("Mouse click coords: " +
+				std::to_string(event.mouseButton.x) + " " +
+				std::to_string(event.mouseButton.y) +
+				" Button coords: " +
+				std::to_string((int)shape.getGlobalBounds().left) + " " +
+				std::to_string((int)shape.getGlobalBounds().top));
+			Log::debug("Button \"" + label.getString() + "\" is pressesd");
+
 			sf::Clock clock;
 			isPressed = true;
 			
 		}
 	}
-	else if (event.type == sf::Event::MouseButtonReleased) {
-		callback();
-		isPressed = false;
+	else if (event.type == sf::Event::MouseButtonReleased &&
+		event.mouseButton.button == sf::Mouse::Left) {
+		sf::Vector2f mousePos = {
+			static_cast<float>(event.mouseButton.x),
+			static_cast<float>(event.mouseButton.y)
+		};
+		if (shape.getGlobalBounds().contains(mousePos)) {
+			callback();
+			isPressed = false;
+		}
 	}
 }
 
