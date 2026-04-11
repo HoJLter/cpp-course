@@ -11,6 +11,10 @@ DotCountInputScene::DotCountInputScene(sf::Vector2u windowSize, ISceneSwitcher& 
 			if (value == 0 || value > 20) {
 				this->dotCountInput.alarm();
 			}
+			else {
+				sceneSwitcher.shared.setDotCount(value);
+				sceneSwitcher.requestSwitchScene(SceneID::DotInput);
+			}
 			
 		}),
 	dotInputLabel("Enter count of dots:", { windowSize.x / 2.f, windowSize.y - 200.f}, 18){	

@@ -14,11 +14,15 @@ Label::Label(std::string str, sf::Vector2f coords, uint16_t charSize) {
 	content.setCharacterSize(charSize);
 	sf::FloatRect bounds = content.getGlobalBounds();
 
-	content.setOrigin({bounds.width/2 + bounds.left, bounds.height/2 + bounds.top});
+	content.setOrigin({bounds.width/2, bounds.height/2});
 
 	content.setPosition(coords);
 
 	Log::debug("Label \"" + str + "\" was created");
+}
+
+void Label::setString(const std::string& str){
+	content.setString(str);
 }
 
 void Label::switchVisibility() {
