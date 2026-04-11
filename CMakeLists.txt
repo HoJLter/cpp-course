@@ -20,7 +20,8 @@ add_executable(app
 	"include/ui/InputField.h" 
 	"src/ui/InputField.cpp" 
 	"src/core/SceneManager.cpp"
- "include/core/ISceneSwitcher.h")
+ "include/core/ISceneSwitcher.h"  "include/utils/Logger.h" 
+"src/utils/Logger.cpp")
 
 target_include_directories(app PRIVATE include)
 target_link_libraries(app PRIVATE sfml-graphics sfml-system sfml-window)

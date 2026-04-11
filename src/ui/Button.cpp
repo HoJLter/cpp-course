@@ -24,7 +24,6 @@ Button::Button(sf::Vector2f padding, sf::Vector2f coords, std::string text, std:
 	shape.setOrigin({ shapeBounds.width / 2, shapeBounds.height / 2 });
 	shape.setPosition(coords);
 
-	std::cout << "BUTTON CREATED";
 
 }
 
@@ -59,7 +58,6 @@ void Button::handleEvent(sf::Event event) {
 			sf::Clock clock;
 			isPressed = true;
 			
-			std::cout << "WASSUP";
 		}
 	}
 	else if (event.type == sf::Event::MouseButtonReleased) {
