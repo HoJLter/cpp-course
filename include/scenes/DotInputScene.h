@@ -11,6 +11,10 @@ private:
 	sf::VertexArray dots;
 	sf::ConvexShape contour;
 
+	Label errorLabel;
+	bool isRestarting;
+	sf::Clock restartClock;
+
 public:
 	DotInputScene(sf::Vector2u windowSize, ISceneSwitcher& sceneSwitcher);
 

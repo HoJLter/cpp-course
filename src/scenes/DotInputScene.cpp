@@ -1,5 +1,6 @@
 #include "scenes/DotInputScene.h"
 #include "utils/Log.h"
+#include "core/Algorithms.h"
 
 
 void DotInputScene::addDot(sf::Vector2f dot) {
@@ -11,6 +12,17 @@ void DotInputScene::addDot(sf::Vector2f dot) {
 		for (int i = 0; i < sceneSwitcher.shared.getDotCount(); i++) {
 			contour.setPoint(i, dots[i].position);
 		}
+		if (isConvex(dots, sceneSwitcher.shared.getDotCount())) {
+			contour.setOutlineColor(sf::Color::Green);
+		}
+		else {
+			restartClock.restart();
+			isRestarting = true;
+			contour.setOutlineColor(sf::Color::Red);
+			
+		}
+		Log::debug("Is convex? " + 
+			std::to_string(isConvex(dots, sceneSwitcher.shared.getDotCount())));
 	}
 }
 
@@ -20,8 +32,13 @@ DotInputScene::DotInputScene(sf::Vector2u windowSize, ISceneSwitcher& ss) :
 	contour(ss.shared.getDotCount()),
 	dotLabel("20 dots remains",
 		{ windowSize.x / 2.f, windowSize.y - 100.f },
-		18)
+		18),
+	errorLabel("Shape is'nt convex!", 
+		{windowSize.x/2.f, 100.f},
+		16)
 {
+	isRestarting = false;
+
 	dots.setPrimitiveType(sf::LineStrip);
 	contour.setFillColor(sf::Color::Transparent);
 	contour.setOutlineThickness(3);
@@ -43,6 +60,13 @@ void DotInputScene::handleEvent(const sf::Event& event) {
 
 void DotInputScene::update(sf::RenderWindow& window) {
 	dotLabel.setString(std::to_string(dotCountRemaining) + " dots remains");
+
+	if (isRestarting && restartClock.getElapsedTime().asSeconds() > 3.f) {
+		Log::debug("Restarting dot input");
+		isRestarting = false;
+		dotCountRemaining = sceneSwitcher.shared.getDotCount();
+		dots.clear();
+	}
 }
 
 void DotInputScene::render(sf::RenderWindow& window) {
@@ -52,5 +76,8 @@ void DotInputScene::render(sf::RenderWindow& window) {
 	}
 	else {
 		window.draw(contour);
+	}
+	if (isRestarting) {
+		errorLabel.render(window);
 	}
 }
