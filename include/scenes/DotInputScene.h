@@ -15,6 +15,9 @@ private:
 	bool isRestarting;
 	sf::Clock restartClock;
 
+	bool isTransfering;
+	sf::Clock transferClock;
+
 public:
 	DotInputScene(sf::Vector2u windowSize, ISceneSwitcher& sceneSwitcher);
 

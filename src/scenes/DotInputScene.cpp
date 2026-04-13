@@ -9,11 +9,16 @@ void DotInputScene::addDot(sf::Vector2f dot) {
 		dotCountRemaining--;
 	}
 	if (dotCountRemaining == 0) {
-		for (int i = 0; i < sceneSwitcher.shared.getDotCount(); i++) {
+		for (int i = 0; i < sceneSwitcher.shared.dotCount; i++) {
 			contour.setPoint(i, dots[i].position);
 		}
-		if (isConvex(dots, sceneSwitcher.shared.getDotCount())) {
+		if (isConvex(dots, sceneSwitcher.shared.dotCount)) {
 			contour.setOutlineColor(sf::Color::Green);
+			sceneSwitcher.shared.dots = dots;
+			sceneSwitcher.shared.contour = contour;
+
+			isTransfering = true;
+			transferClock.restart();
 		}
 		else {
 			restartClock.restart();
@@ -22,14 +27,14 @@ void DotInputScene::addDot(sf::Vector2f dot) {
 			
 		}
 		Log::debug("Is convex? " + 
-			std::to_string(isConvex(dots, sceneSwitcher.shared.getDotCount())));
+			std::to_string(isConvex(dots, sceneSwitcher.shared.dotCount)));
 	}
 }
 
 DotInputScene::DotInputScene(sf::Vector2u windowSize, ISceneSwitcher& ss) :
 	Scene(ss),
-	dotCountRemaining(ss.shared.getDotCount()),
-	contour(ss.shared.getDotCount()),
+	dotCountRemaining(ss.shared.dotCount),
+	contour(ss.shared.dotCount),
 	dotLabel("20 dots remains",
 		{ windowSize.x / 2.f, windowSize.y - 100.f },
 		18),
@@ -64,8 +69,13 @@ void DotInputScene::update(sf::RenderWindow& window) {
 	if (isRestarting && restartClock.getElapsedTime().asSeconds() > 3.f) {
 		Log::debug("Restarting dot input");
 		isRestarting = false;
-		dotCountRemaining = sceneSwitcher.shared.getDotCount();
+		dotCountRemaining = sceneSwitcher.shared.dotCount;
 		dots.clear();
+	}
+
+	if (isTransfering && transferClock.getElapsedTime().asSeconds() > 3.f) {
+		isTransfering = false;
+		sceneSwitcher.requestSwitchScene(SceneID::Result);
 	}
 }
 

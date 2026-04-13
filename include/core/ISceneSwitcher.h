@@ -8,12 +8,10 @@ enum class SceneID {
 	Result
 };
 
-class SharedData {
-private:
+struct SharedData {
 	int dotCount;
-public:
-	int getDotCount();
-	void setDotCount(int count);
+	sf::ConvexShape contour;
+	sf::VertexArray dots;
 };
 
 class ISceneSwitcher {

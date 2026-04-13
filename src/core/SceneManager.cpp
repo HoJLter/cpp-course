@@ -12,9 +12,6 @@ std::string sceneIdToStr(SceneID id) {
 	}
 }
 
-int SharedData::getDotCount() { return dotCount; }
-void SharedData::setDotCount(int count) { dotCount = count; }
-
 SceneManager::SceneManager(sf::RenderWindow& window): window(window) {
 	curScene = std::make_unique<InitialScene>(window.getSize(), *this);
 }
@@ -40,7 +37,7 @@ void SceneManager::switchScene() {
 			break;
 		}
 		case SceneID::Result: {
-			curScene = std::make_unique<InitialScene>(window.getSize(), *this);
+			curScene = std::make_unique<ResultScene>(window.getSize(), *this);
 			break;
 		}
 		}

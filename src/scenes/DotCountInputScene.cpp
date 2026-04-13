@@ -12,7 +12,7 @@ DotCountInputScene::DotCountInputScene(sf::Vector2u windowSize, ISceneSwitcher& 
 				this->dotCountInput.alarm();
 			}
 			else {
-				sceneSwitcher.shared.setDotCount(value);
+				sceneSwitcher.shared.dotCount = value;
 				sceneSwitcher.requestSwitchScene(SceneID::DotInput);
 			}
 			
