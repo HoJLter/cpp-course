@@ -8,7 +8,7 @@ DotCountInputScene::DotCountInputScene(sf::Vector2u windowSize, ISceneSwitcher& 
 		[this]() {
 			int value = std::stoi(this->dotCountInput.getValue());
 			Log::debug("Input callback called with value: " + std::to_string(value));
-			if (value == 0 || value > 20) {
+			if (value == 0 || value > 100) {
 				this->dotCountInput.alarm();
 			}
 			else {

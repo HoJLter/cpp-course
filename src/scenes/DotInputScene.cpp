@@ -4,6 +4,7 @@
 
 
 void DotInputScene::addDot(sf::Vector2f dot) {
+	Log::debug("Dot count remaining: " + std::to_string(dotCountRemaining));
 	if (dotCountRemaining > 0) {
 		dots.append(dot);
 		dotCountRemaining--;
@@ -21,6 +22,7 @@ void DotInputScene::addDot(sf::Vector2f dot) {
 			transferClock.restart();
 		}
 		else {
+			Log::debug("Dot count remaining: " + std::to_string(dotCountRemaining));
 			restartClock.restart();
 			isRestarting = true;
 			contour.setOutlineColor(sf::Color::Red);
@@ -43,6 +45,7 @@ DotInputScene::DotInputScene(sf::Vector2u windowSize, ISceneSwitcher& ss) :
 		16)
 {
 	isRestarting = false;
+	isTransfering = false;
 
 	dots.setPrimitiveType(sf::LineStrip);
 	contour.setFillColor(sf::Color::Transparent);
@@ -73,7 +76,7 @@ void DotInputScene::update(sf::RenderWindow& window) {
 		dots.clear();
 	}
 
-	if (isTransfering && transferClock.getElapsedTime().asSeconds() > 3.f) {
+	if (isTransfering && transferClock.getElapsedTime().asSeconds() > 1.5f) {
 		isTransfering = false;
 		sceneSwitcher.requestSwitchScene(SceneID::Result);
 	}

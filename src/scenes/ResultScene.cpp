@@ -1,4 +1,5 @@
 #include "scenes/ResultScene.h"
+#include "core/Algorithms.h"
 #include "utils/Log.h"
 
 ResultScene::ResultScene(sf::Vector2u windowSize, ISceneSwitcher& ss) :
@@ -9,9 +10,25 @@ ResultScene::ResultScene(sf::Vector2u windowSize, ISceneSwitcher& ss) :
 		{ static_cast<float>(windowSize.x) / 2.f, windowSize.y - 150.f }, 
 		"Calculate",
 		[this]() {
-			
+			isCalcButtonPressed = true;
+			calcLossLenDia(dots, diaArr, lenSum);
+			isCalcEnded = true;
+			cooldown.restart();
+
+		}),
+	returnToInitial({ 50.f, 20.f },
+		{ static_cast<float>(windowSize.x) / 2.f, windowSize.y - 150.f },
+		"Continue",
+		[this]() {
+			if (cooldown.getElapsedTime().asSeconds() > 0.5f) {
+				sceneSwitcher.requestSwitchScene(SceneID::Initial);
+			}
 		})
 {
+	lenSum = 0;
+	isCalcButtonPressed = false;
+	isCalcEnded = false;
+	diaArr.setPrimitiveType(sf::Lines);
 
 	dots.setPrimitiveType(sf::LineStrip);
 	contour.setFillColor(sf::Color::Transparent);
@@ -21,7 +38,12 @@ ResultScene::ResultScene(sf::Vector2u windowSize, ISceneSwitcher& ss) :
 }
 
 void ResultScene::handleEvent(const sf::Event& event){
-	calculate.handleEvent(event);
+	if (!isCalcButtonPressed) {
+		calculate.handleEvent(event);
+	}
+	if (isCalcEnded) {
+		returnToInitial.handleEvent(event);
+	}
 }
 
 void ResultScene::update(sf::RenderWindow& window) {
@@ -30,11 +52,21 @@ void ResultScene::update(sf::RenderWindow& window) {
 		static_cast<float>(curPosInt.x),
 		static_cast<float>(curPosInt.y)
 	);
-
-	calculate.update(curPosFloat);
+	if (!isCalcButtonPressed) {
+		calculate.update(curPosFloat);
+	}
+	if (isCalcEnded) {
+		returnToInitial.update(curPosFloat);
+	}
 }
 
 void ResultScene::render(sf::RenderWindow& window) {
 	window.draw(contour);
-	calculate.render(window);
+	window.draw(diaArr);
+	if (!isCalcButtonPressed) {
+		calculate.render(window);
+	}
+	if (isCalcEnded) {
+		returnToInitial.render(window);
+	}
 }

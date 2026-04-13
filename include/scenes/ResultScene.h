@@ -3,9 +3,18 @@
 
 class ResultScene : public Scene {
 private:
+	float lenSum;
+
 	sf::ConvexShape contour;
 	sf::VertexArray dots;
 	Button calculate;
+	Button returnToInitial;
+
+	sf::VertexArray diaArr;
+
+	sf::Clock cooldown;
+	bool isCalcButtonPressed;
+	bool isCalcEnded;
 
 public:
 	ResultScene(sf::Vector2u windowSize, ISceneSwitcher& sceneSwitcher);
