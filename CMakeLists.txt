@@ -21,7 +21,7 @@ add_executable(app
 	"src/ui/InputField.cpp" 
 	"src/core/SceneManager.cpp"
  "include/core/ISceneSwitcher.h"  "include/utils/Logger.h" 
-"src/utils/Logger.cpp" "src/utils/Log.cpp" "include/utils/Log.h" "include/core/Algorithms.h" "src/core/Algorithms.cpp")
+"src/utils/Logger.cpp" "src/utils/Log.cpp" "include/utils/Log.h" "include/core/Algorithms.h" "src/core/Algorithms.cpp" "src/scenes/TestsScene.cpp")
 
 target_include_directories(app PRIVATE include)
 target_link_libraries(app PRIVATE sfml-graphics sfml-system sfml-window)

@@ -9,6 +9,9 @@ class Application {
 private:
 	sf::RenderWindow window;
 	SceneManager sceneManager;
+
+	sf::Texture backgroundTexture;
+	sf::Sprite background;
 	
 public:
 	Application(uint16_t width, uint16_t height);

@@ -8,6 +8,7 @@ std::string sceneIdToStr(SceneID id) {
 	case SceneID::DotCountInput: return "DotCountInputScene";
 	case SceneID::DotInput: return "DotInputScene";
 	case SceneID::Result: return "ResultScene";
+	case SceneID::Tests: return "TestsScene";
 	default: return "UnknownScene";
 	}
 }
@@ -38,6 +39,10 @@ void SceneManager::switchScene() {
 		}
 		case SceneID::Result: {
 			curScene = std::make_unique<ResultScene>(window.getSize(), *this);
+			break;
+		}
+		case SceneID::Tests: {
+			curScene = std::make_unique<TestsScene>(window.getSize(), *this);
 			break;
 		}
 		}

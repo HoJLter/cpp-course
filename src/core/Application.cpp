@@ -1,10 +1,15 @@
 #include "core/Application.h"
 #include "utils/Log.h"
 
+
+
 Application::Application(uint16_t width, uint16_t height):
 window(sf::VideoMode(width, height), "VISUALIZATION"),
 sceneManager(window){
 	Log::debug("Application created");
+	if (!backgroundTexture.loadFromFile("assets/background.png")) {
+		Log::error("Failed to load background");
+	}
 }
 
 void Application::processEvents() {
@@ -27,6 +32,13 @@ void Application::update() {
 
 void Application::render() {
 	window.clear();
+
+	float scaleX = window.getSize().x / backgroundTexture.getSize().x;
+	float scaleY = window.getSize().y / backgroundTexture.getSize().y;
+
+	background.setScale(scaleX, scaleY);
+	background.setTexture(backgroundTexture);
+	window.draw(background);
 
 	sceneManager.render();
 

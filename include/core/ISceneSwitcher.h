@@ -5,7 +5,8 @@ enum class SceneID {
 	Initial,
 	DotCountInput,
 	DotInput,
-	Result
+	Result,
+	Tests
 };
 
 struct SharedData {

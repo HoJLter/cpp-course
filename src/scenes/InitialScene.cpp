@@ -9,7 +9,7 @@ InitialScene::InitialScene(sf::Vector2u windowSize, ISceneSwitcher& ss):
 		18),
 	testButton({ 50.f, 20.f }, { static_cast<float>(windowSize.x) / 2.f, windowSize.y - 250.f }, "TESTS",
 		[this]() {
-			sceneSwitcher.requestSwitchScene(SceneID::DotCountInput);
+			sceneSwitcher.requestSwitchScene(SceneID::Tests);
 		}),
 	startButton({ 50.f, 20.f }, { static_cast<float>(windowSize.x) / 2.f, windowSize.y - 150.f }, "START",
 		[this]() {
