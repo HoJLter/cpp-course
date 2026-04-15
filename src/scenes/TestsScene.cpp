@@ -1,8 +1,8 @@
-#include "scenes/InitialScene.h"
-#include <iostream>
+#include "scenes/TestsScene.h"
 #include "utils/Log.h"
 
-InitialScene::InitialScene(sf::Vector2u windowSize, ISceneSwitcher& ss): 
+
+TestsScene::TestsScene(sf::Vector2u windowSize, ISceneSwitcher& ss) :
 	Scene(ss),
 	startLabel("Welcome to dia calculator",
 		{ static_cast<float>(windowSize.x) / 2.f, windowSize.y - 600.f },
@@ -18,12 +18,12 @@ InitialScene::InitialScene(sf::Vector2u windowSize, ISceneSwitcher& ss):
 	Log::debug("Initial scene created");
 }
 
-void InitialScene::handleEvent(const sf::Event& event) {
+void TestsScene::TestsScene(const sf::Event& event) {
 	startButton.handleEvent(event);
 	testButton.handleEvent(event);
 }
 
-void InitialScene::update(sf::RenderWindow& window) {
+void TestsScene::update(sf::RenderWindow& window) {
 	sf::Vector2i curPosInt = sf::Mouse::getPosition(window);
 	sf::Vector2f curPosFloat(
 		static_cast<float>(curPosInt.x),
@@ -34,8 +34,6 @@ void InitialScene::update(sf::RenderWindow& window) {
 	testButton.update(curPosFloat);
 }
 
-void InitialScene::render(sf::RenderWindow& window) {
-	startButton.render(window);
-	testButton.render(window);
-	startLabel.render(window);
+void TestsScene::render(sf::RenderWindow& window) {
+	returnToInitial
 }

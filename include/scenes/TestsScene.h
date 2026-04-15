@@ -3,14 +3,13 @@
 #include "ui/Button.h"
 #include "ui/Label.h"
 
-class InitialScene : public Scene {
+class TestsScene : public Scene {
 private:
-	Button startButton;
-	Button testButton;
-	Label startLabel;
-
+	Button returnToInitial;
+	sf::VertexArray lines;
+	
 public:
-	InitialScene(sf::Vector2u windowSize, ISceneSwitcher& sceneSwitcher);
+	TestsScene(sf::Vector2u windowSize, ISceneSwitcher& sceneSwitcher);
 
 	void handleEvent(const sf::Event& event) override;
 	void update(sf::RenderWindow& window) override;

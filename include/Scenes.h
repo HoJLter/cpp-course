@@ -3,3 +3,4 @@
 #include "scenes/DotCountInputScene.h"
 #include "scenes/DotInputScene.h"
 #include "scenes/ResultScene.h"
+#include "scenes/TestsScene.h"
