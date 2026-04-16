@@ -1,0 +1,45 @@
+@startuml
+class Application{
+    - sf::RenderWindow window
+    - SceneManager& sceneManager
+    - void handleEvents()
+    - void render()
+    - void update()
+
+    + run()
+}
+
+class SceneManager{
+    - sf::RenderWindow& window
+    - std::unique_ptr curScene
+
+    + void requestSwitchScene(SceneID)
+    + void switchScene();
+
+	+ void handleEvent(const sf::Event& event);
+	+ void update();
+	+ void render();
+}
+
+struct SharedData{
+    + int dotCount;
+	+ sf::ConvexShape contour;
+	+ sf::VertexArray dots;
+}
+
+class ISceneSwitcher{
+    - std::optional<requestedScene>
+
+    + SharedData shared;
+	+ void requestSwitchScene(SceneID id)
+}
+
+class Scene{
+    - ISceneSwitcher& sceneSwitcher
+    + void handleEvent(const sf::Event& event)
+	+ void update(sf::RenderWindow& window)
+	+ void render(sf::RenderWindow& window)
+}
+
+
+@enduml

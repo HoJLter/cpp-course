@@ -2,6 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include <functional>
 
+
 class Button {
 private:
 	sf::RectangleShape shape;
