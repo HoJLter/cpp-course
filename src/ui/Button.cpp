@@ -29,8 +29,13 @@ Button::Button(sf::Vector2f padding, sf::Vector2f coords, std::string text, std:
 	Log::debug("Button \"" + text + "\" was created");
 }
 
-void Button::update(sf::Vector2f mousePos) {
-	bool isHovered = shape.getGlobalBounds().contains(mousePos);
+void Button::update(sf::RenderWindow& window) {
+	sf::Vector2i curPosInt = sf::Mouse::getPosition(window);
+	sf::Vector2f curPosFloat(
+		static_cast<float>(curPosInt.x),
+		static_cast<float>(curPosInt.y)
+	);
+	bool isHovered = shape.getGlobalBounds().contains(curPosFloat);
 	sf::Vector2f scale = shape.getScale();
 	if (isHovered) {
 		shape.setFillColor(sf::Color::Cyan);
@@ -49,7 +54,7 @@ void Button::update(sf::Vector2f mousePos) {
 	};
 }
 
-void Button::handleEvent(sf::Event event) {
+void Button::handleEvent(const sf::Event& event) {
 	if (event.type == sf::Event::MouseButtonPressed &&
 		event.mouseButton.button == sf::Mouse::Left) {
 		sf::Vector2f mousePos = { 

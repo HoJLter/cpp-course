@@ -74,7 +74,7 @@ void InputField::alarm() {
 
 }
 
-void InputField::update() {
+void InputField::update(sf::RenderWindow& window) {
 	if (isAlarmState && alarmClock.getElapsedTime().asSeconds() >= 1.f) {
 		isAlarmState = false;
 	}

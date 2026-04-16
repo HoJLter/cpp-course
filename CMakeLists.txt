@@ -12,7 +12,7 @@ add_executable(app
 	"src/core/Application.cpp"
 	"src/ui/Button.cpp"
 	"src/ui/Label.cpp"
-	"src/ui/Figure.cpp"
+	
 	"src/scenes/InitialScene.cpp"
 	"src/scenes/DotCountInputScene.cpp"
 	"src/scenes/DotInputScene.cpp"

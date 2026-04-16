@@ -41,5 +41,22 @@ class Scene{
 	+ void render(sf::RenderWindow& window)
 }
 
+class UI{
+    + void handleEvent(const sf::Event& event)
+	+ void update(sf::RenderWindow& window)
+	+ void render(sf::RenderWindow& window)
+}
 
+class Button{
+
+}
+class Label{
+
+}
+class InputField{
+
+}
+class Figure{
+    
+}
 @enduml

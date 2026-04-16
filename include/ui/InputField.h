@@ -1,8 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <functional>
+#include "ui/UI.h"
 
-class InputField {
+class InputField: public UI {
 private:
 	std::string value;
 	sf::Text enteredText;
@@ -22,7 +23,7 @@ public:
 	std::string getValue();
 	void alarm();
 
-	void handleEvent(const sf::Event& event);
-	void update();
-	void render(sf::RenderWindow& window);
+	void handleEvent(const sf::Event& event) override;
+	void update(sf::RenderWindow& window) override;
+	void render(sf::RenderWindow& window) override;
 };

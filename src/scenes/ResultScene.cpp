@@ -47,16 +47,11 @@ void ResultScene::handleEvent(const sf::Event& event){
 }
 
 void ResultScene::update(sf::RenderWindow& window) {
-	sf::Vector2i curPosInt = sf::Mouse::getPosition(window);
-	sf::Vector2f curPosFloat(
-		static_cast<float>(curPosInt.x),
-		static_cast<float>(curPosInt.y)
-	);
 	if (!isCalcButtonPressed) {
-		calculate.update(curPosFloat);
+		calculate.update(window);
 	}
 	if (isCalcEnded) {
-		returnToInitial.update(curPosFloat);
+		returnToInitial.update(window);
 	}
 }
 

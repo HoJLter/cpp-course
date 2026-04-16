@@ -159,17 +159,11 @@ void TestsScene::handleEvent(const sf::Event& event) {
 }
 
 void TestsScene::update(sf::RenderWindow& window) {
-	sf::Vector2i curPosInt = sf::Mouse::getPosition(window);
-	sf::Vector2f curPosFloat(
-		static_cast<float>(curPosInt.x),
-		static_cast<float>(curPosInt.y)
-	);
-
 	if (!isCalcButtonPressed) {
-		calculate.update(curPosFloat);
+		calculate.update(window);
 	}
 	if (isCalcEnded) {
-		returnToInitial.update(curPosFloat);
+		returnToInitial.update(window);
 	}
 
 }
@@ -179,7 +173,6 @@ void TestsScene::render(sf::RenderWindow& window) {
 		window.draw(fig.diagonals);
 		window.draw(fig.contour);
 	}
-	//window.draw(diaArr);
 
 	if (!isCalcButtonPressed) {
 		calculate.render(window);

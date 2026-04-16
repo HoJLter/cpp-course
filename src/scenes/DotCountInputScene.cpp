@@ -26,7 +26,7 @@ void DotCountInputScene::handleEvent(const sf::Event& event) {
 }
 
 void DotCountInputScene::update(sf::RenderWindow& window) {
-	dotCountInput.update();
+	dotCountInput.update(window);
 }
 
 void DotCountInputScene::render(sf::RenderWindow& window) {

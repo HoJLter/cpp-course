@@ -24,14 +24,8 @@ void InitialScene::handleEvent(const sf::Event& event) {
 }
 
 void InitialScene::update(sf::RenderWindow& window) {
-	sf::Vector2i curPosInt = sf::Mouse::getPosition(window);
-	sf::Vector2f curPosFloat(
-		static_cast<float>(curPosInt.x),
-		static_cast<float>(curPosInt.y)
-	);
-
-	startButton.update(curPosFloat);
-	testButton.update(curPosFloat);
+	startButton.update(window);
+	testButton.update(window);
 }
 
 void InitialScene::render(sf::RenderWindow& window) {
