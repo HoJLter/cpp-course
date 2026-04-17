@@ -30,13 +30,6 @@ void Label::switchVisibility() {
 }
 
 
-void Label::handleEvent(const sf::Event& event) {
-}
-
-void Label::update(sf::RenderWindow& window) {
-}
-
-
 void Label::render(sf::RenderWindow& window) {
 	if (isVisible) {
 		window.draw(content);

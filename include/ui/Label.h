@@ -16,7 +16,5 @@ public:
 
 	void switchVisibility();
 
-	void handleEvent(const sf::Event& event) override;
-	void update(sf::RenderWindow& window) override;
 	void render(sf::RenderWindow& window) override;
 };

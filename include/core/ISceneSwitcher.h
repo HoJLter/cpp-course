@@ -16,8 +16,6 @@ struct SharedData {
 };
 
 class ISceneSwitcher {
-private:
-	std::optional<SceneID> requestedScene;
 public:
 	SharedData shared;
 	virtual void requestSwitchScene(SceneID id) = 0;
