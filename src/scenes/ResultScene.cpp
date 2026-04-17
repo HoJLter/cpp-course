@@ -1,6 +1,7 @@
 #include "scenes/ResultScene.h"
-#include "core/Algorithms.h"
+#include "algo/Triangulators.h"
 #include "utils/Log.h"
+
 
 ResultScene::ResultScene(sf::Vector2u windowSize, ISceneSwitcher& ss) :
 	Scene(ss),
@@ -11,7 +12,13 @@ ResultScene::ResultScene(sf::Vector2u windowSize, ISceneSwitcher& ss) :
 		"Calculate",
 		[this]() {
 			isCalcButtonPressed = true;
-			calcLossLenDia(dots, diaArr, lenSum);
+			
+			std::unique_ptr<ITriangulator> triangulator = std::make_unique<EarTriangulator>();
+			TriangulationResult res = triangulator->triangulate(vertexArrToPoly(dots));
+			for (const Edge& x : res.diagonals) {
+				diaArr.append(dots[x.aID]);
+				diaArr.append(dots[x.bID]);
+			}
 			isCalcEnded = true;
 			cooldown.restart();
 

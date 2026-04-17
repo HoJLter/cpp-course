@@ -11,7 +11,7 @@ class TestsScene : public Scene {
 private:
 	Button calculate;
 	Button returnToInitial;
-	sf::VertexArray lines;
+	sf::VertexArray diaArr;
 
 	struct figure {
 		sf::ConvexShape contour;

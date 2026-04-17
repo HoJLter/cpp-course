@@ -1,7 +1,6 @@
 #include "scenes/DotInputScene.h"
 #include "utils/Log.h"
-#include "core/Algorithms.h"
-
+#include "algo/Geometry.h"
 
 void DotInputScene::addDot(sf::Vector2f dot) {
 	Log::debug("Dot count remaining: " + std::to_string(dotCountRemaining));
@@ -13,7 +12,8 @@ void DotInputScene::addDot(sf::Vector2f dot) {
 		for (int i = 0; i < sceneSwitcher.shared.dotCount; i++) {
 			contour.setPoint(i, dots[i].position);
 		}
-		if (isConvex(dots, sceneSwitcher.shared.dotCount)) {
+	
+		if (isConvex(vertexArrToPoly(dots))) {
 			contour.setOutlineColor(sf::Color::Green);
 			sceneSwitcher.shared.dots = dots;
 			sceneSwitcher.shared.contour = contour;
@@ -29,7 +29,7 @@ void DotInputScene::addDot(sf::Vector2f dot) {
 			
 		}
 		Log::debug("Is convex? " + 
-			std::to_string(isConvex(dots, sceneSwitcher.shared.dotCount)));
+			std::to_string(isConvex(vertexArrToPoly(dots))));
 	}
 }
 

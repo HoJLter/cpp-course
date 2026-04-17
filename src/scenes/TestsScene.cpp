@@ -1,5 +1,5 @@
 #include "scenes/TestsScene.h"
-#include "core/Algorithms.h"
+#include "algo/Triangulators.h"
 #include "utils/Log.h"
 
 
@@ -31,7 +31,13 @@ TestsScene::TestsScene(sf::Vector2u windowSize, ISceneSwitcher& ss) :
 				for (int i = 0; i < fig.contour.getPointCount(); i++) {
 					dots.append(sf::Vertex(fig.contour.getTransform().transformPoint(fig.contour.getPoint(i))));
 				}
-				calcLossLenDia(dots, fig.diagonals, fig.diaLen);
+
+				std::unique_ptr<ITriangulator> triangulator = std::make_unique<EarTriangulator>();
+				TriangulationResult res = triangulator->triangulate(vertexArrToPoly(dots));
+				for (const Edge& x : res.diagonals) {
+					diaArr.append(dots[x.aID]);
+					diaArr.append(dots[x.bID]);
+				}
 			}
 			isCalcEnded = true;
 			cooldown.restart();
@@ -56,7 +62,7 @@ TestsScene::TestsScene(sf::Vector2u windowSize, ISceneSwitcher& ss) :
 	isCalcEnded = false;
 
 	Log::debug("TestsScene created");
-	lines.setPrimitiveType(sf::Lines);
+	diaArr.setPrimitiveType(sf::Lines);
 
 	float width = windowSize.x;
 	float height = windowSize.y;
@@ -66,15 +72,15 @@ TestsScene::TestsScene(sf::Vector2u windowSize, ISceneSwitcher& ss) :
 	float y2 = 2.f * height / 3.f;
 
 	//вертикаль
-	lines.append(sf::Vertex{ {x, 0.f}, sf::Color::White });
-	lines.append(sf::Vertex{ {x, y2}, sf::Color::White });
+	diaArr.append(sf::Vertex{ {x, 0.f}, sf::Color::White });
+	diaArr.append(sf::Vertex{ {x, y2}, sf::Color::White });
 
 	//гор1
-	lines.append(sf::Vertex{ {0.f, y1}, sf::Color::White });
-	lines.append(sf::Vertex{ {width, y1}, sf::Color::White });
+	diaArr.append(sf::Vertex{ {0.f, y1}, sf::Color::White });
+	diaArr.append(sf::Vertex{ {width, y1}, sf::Color::White });
 	//гор2
-	lines.append(sf::Vertex{ {0.f, y2}, sf::Color::White });
-	lines.append(sf::Vertex{ {width, y2}, sf::Color::White });
+	diaArr.append(sf::Vertex{ {0.f, y2}, sf::Color::White });
+	diaArr.append(sf::Vertex{ {width, y2}, sf::Color::White });
 
 	{
 		figure fig;
@@ -181,6 +187,6 @@ void TestsScene::render(sf::RenderWindow& window) {
 		returnToInitial.render(window);
 	}
 
-	window.draw(lines);
+	window.draw(diaArr);
 
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include "Geometry.h"
+#include "algo/Geometry.h"
 
 struct TriangulationResult {
 	std::vector<Edge> diagonals;
@@ -13,9 +13,15 @@ public:
 };
 
 class EarTriangulator : public ITriangulator {
-	TriangulationResult triangulate(const Polygon& poly) = 0;
+private:
+	void triangleImpl(const Polygon& poly, TriangulationResult& result);
+public:
+	TriangulationResult triangulate(const Polygon& poly) override;
 };
 
 class DynamicTriangulator : public ITriangulator {
-	TriangulationResult triangulate(const Polygon& poly) = 0;
+private:
+	void triangleImpl(const Polygon& poly, TriangulationResult& result);
+public:
+	TriangulationResult triangulate(const Polygon& poly) override;
 };
