@@ -48,15 +48,32 @@ class UI{
 }
 
 class Button{
-
+    - sf::RectangleShape shape;
+	- sf::Text label;
+	- sf::Font font;
+	- std::function<void()> callback;
 }
 class Label{
-
+	- sf::Text content;
+	- sf::Vector2f coords;
+	- sf::Font font;
 }
 class InputField{
+    - std::string value;
+	- sf::Text enteredText;
+	- sf::Font font;
+	- sf::RectangleShape shape;
+	- std::function<void()> action;
+}
 
-}
-class Figure{
-    
-}
+Button --|> UI
+Label --|> UI
+InputField --|> UI
+
+SharedData o-- ISceneSwitcher
+SceneManager o-- Scene
+SceneManager --|> ISceneSwitcher
+Application o-- SceneManager
+
+UI o-- Scene;
 @enduml
