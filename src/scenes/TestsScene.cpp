@@ -32,7 +32,7 @@ TestsScene::TestsScene(sf::Vector2u windowSize, ISceneSwitcher& ss) :
 					dots.append(sf::Vertex(fig.contour.getTransform().transformPoint(fig.contour.getPoint(i))));
 				}
 
-				std::unique_ptr<ITriangulator> triangulator = std::make_unique<EarTriangulator>();
+				std::unique_ptr<ITriangulator> triangulator = std::make_unique<RecursiveTriangulator>();
 				TriangulationResult res = triangulator->triangulate(vertexArrToPoly(dots));
 				for (const Edge& x : res.diagonals) {
 					diaArr.append(dots[x.aID]);

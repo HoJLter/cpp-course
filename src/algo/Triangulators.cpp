@@ -39,32 +39,47 @@ TriangulationResult EarTriangulator::triangulate(const Polygon& poly) {
 }
 
 
-TriangulationResult DynamicTriangulator::triangulate(const Polygon& poly) {
+TriangulationResult RecursiveTriangulator::triangulate(const Polygon& poly) {
 	TriangulationResult result;
 	triangleImpl(poly, result);
 	return result;
 }
 
-void DynamicTriangulator::triangleImpl(const Polygon& poly, TriangulationResult& result) {
+void RecursiveTriangulator::triangleImpl(const Polygon& poly, TriangulationResult& result) {
+	bool first = true;
+	TriangulationResult best;
 	int len = poly.size();
-	if (len == 3) {
+	if (len <= 3) {
+		result.diagonalsLen = 0;
 		return;
 	}
 	for (int i = 0; i < len; i++) {
-		for (int j = 0; j < len; j++) {
+		for (int j = i+1; j < len; j++) {
 			bool isNeighbor = (((i + 1) % len == j) || ((i - 1 + len) % len == j) || i == j);
 			if (isNeighbor) continue;
 			SplittedPoly sp = splitPolygon(poly, Edge(i, j));
 
-			result.diagonals.push_back(Edge(i, j));
-			result.diagonalsLen += calcLen(poly[i], poly[j]);
+			
 			TriangulationResult resA;
 			triangleImpl(sp.a, resA);
 			TriangulationResult resB;
 			triangleImpl(sp.b,resB);
-		}
-		
-	}
 
-	
+			TriangulationResult candidate;
+			candidate.diagonalsLen = calcLen(poly[i], poly[j]) + resA.diagonalsLen + resB.diagonalsLen;
+			candidate.diagonals.push_back(Edge(poly[i].id, poly[j].id));
+			for (const Edge& e : resA.diagonals)
+				candidate.diagonals.push_back(e);
+
+			for (const Edge& e : resB.diagonals)
+				candidate.diagonals.push_back(e);
+
+
+			if (first || candidate.diagonalsLen < best.diagonalsLen) {
+				best = candidate;
+				first = false;
+			}
+		}
+	}
+	result = best;
 }

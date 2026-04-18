@@ -46,8 +46,8 @@ sf::VertexArray polyToVertexArr(const Polygon& poly) {
 
 SplittedPoly splitPolygon(const Polygon& poly, const Edge& edgeCutter) {
     SplittedPoly result;
-    int a = edgeCutter.aID > edgeCutter.bID ? edgeCutter.aID : edgeCutter.bID;
-    int b = edgeCutter.aID < edgeCutter.bID ? edgeCutter.aID : edgeCutter.bID;
+    int b = edgeCutter.aID > edgeCutter.bID ? edgeCutter.aID : edgeCutter.bID;
+    int a = edgeCutter.aID < edgeCutter.bID ? edgeCutter.aID : edgeCutter.bID;
 
     for (int i = 0; i < poly.size(); i++) {
         if (i > a && i < b) {

@@ -12,13 +12,14 @@ ResultScene::ResultScene(sf::Vector2u windowSize, ISceneSwitcher& ss) :
 		"Calculate",
 		[this]() {
 			isCalcButtonPressed = true;
-			
-			std::unique_ptr<ITriangulator> triangulator = std::make_unique<EarTriangulator>();
+			sf::Clock time;
+			std::unique_ptr<ITriangulator> triangulator = std::make_unique<RecursiveTriangulator>();
 			TriangulationResult res = triangulator->triangulate(vertexArrToPoly(dots));
 			for (const Edge& x : res.diagonals) {
 				diaArr.append(dots[x.aID]);
 				diaArr.append(dots[x.bID]);
 			}
+			Log::debug("Time passed: " + std::to_string(time.getElapsedTime().asMicroseconds()));
 			isCalcEnded = true;
 			cooldown.restart();
 

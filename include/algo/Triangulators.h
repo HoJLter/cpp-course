@@ -19,7 +19,7 @@ public:
 	TriangulationResult triangulate(const Polygon& poly) override;
 };
 
-class DynamicTriangulator : public ITriangulator {
+class RecursiveTriangulator : public ITriangulator {
 private:
 	void triangleImpl(const Polygon& poly, TriangulationResult& result);
 public:
