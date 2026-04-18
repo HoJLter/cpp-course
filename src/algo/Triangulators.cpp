@@ -11,7 +11,7 @@ void EarTriangulator::triangleImpl(const Polygon& poly, TriangulationResult& res
 	int middleEarIndex = -1;
 	for (int i = 0; i < poly.size(); i++) {
 		int pairId = (i + 2) % poly.size();
-		float curLen = calcLen(poly[i].coords, poly[pairId].coords);
+		float curLen = calcLen(poly[i], poly[pairId]);
 		if (curLen < minLen || minLen == -1) {
 			middleEarIndex = (i + 1) % poly.size();
 			minLen = curLen;
@@ -22,7 +22,7 @@ void EarTriangulator::triangleImpl(const Polygon& poly, TriangulationResult& res
 
 	result.diagonals.push_back(Edge(v1.id, v2.id));
 	result.diagonalsLen += minLen;
-
+	
 	Polygon newPoly;
 	for (int i = 0; i < poly.size(); i++) {
 		if (i != middleEarIndex) {
@@ -48,10 +48,23 @@ TriangulationResult DynamicTriangulator::triangulate(const Polygon& poly) {
 void DynamicTriangulator::triangleImpl(const Polygon& poly, TriangulationResult& result) {
 	int len = poly.size();
 	if (len == 3) {
-
+		return;
 	}
 	for (int i = 0; i < len; i++) {
-		bool isNeighbor = ((i + 1) % len || ((i - 1 + len) % len));
-		if (isNeighbor) continue;
+		for (int j = 0; j < len; j++) {
+			bool isNeighbor = (((i + 1) % len == j) || ((i - 1 + len) % len == j) || i == j);
+			if (isNeighbor) continue;
+			SplittedPoly sp = splitPolygon(poly, Edge(i, j));
+
+			result.diagonals.push_back(Edge(i, j));
+			result.diagonalsLen += calcLen(poly[i], poly[j]);
+			TriangulationResult resA;
+			triangleImpl(sp.a, resA);
+			TriangulationResult resB;
+			triangleImpl(sp.b,resB);
+		}
+		
 	}
+
+	
 }

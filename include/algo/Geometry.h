@@ -2,14 +2,13 @@
 #include <vector>
 #include "SFML/Graphics.hpp"
 
-struct Point{
-	float x;
-	float y;
-};
 
 struct Vertex {
-	Point coords;
+	Vertex() : x(0), y(0) {};
+	Vertex(float a, float b, int i) : x(a), y(b), id(i) {};
 	int id;
+	float x;
+	float y;
 };
 
 struct Edge {
@@ -27,9 +26,15 @@ struct Polygon{
 	const Vertex& operator[](int i) const { return vertices[i]; }
 };
 
+struct SplittedPoly {
+	Polygon a;
+	Polygon b;
+};
 
 bool isConvex(const Polygon& poly);
-float calcLen(const Point& a, const Point& b);
+float calcLen(const Vertex& a, const Vertex& b);
 
 Polygon vertexArrToPoly(const sf::VertexArray& arr);
 sf::VertexArray polyToVertexArr(const Polygon& poly);
+
+SplittedPoly splitPolygon(const Polygon& poly, const Edge& edgeCutter);

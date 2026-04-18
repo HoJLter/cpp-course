@@ -9,8 +9,8 @@ bool isConvex(const Polygon& poly) {
         auto& C = poly[(i + 2) % len];
 
         float cross =
-            (B.coords.x - A.coords.x) * (C.coords.y - A.coords.y) -
-            (B.coords.y - A.coords.y) * (C.coords.x - A.coords.x);
+            (B.x - A.x) * (C.y - A.y) -
+            (B.y - A.y) * (C.x - A.x);
 
         int signCur = cross > 0 ? 1 : -1;
         if (signCur != sign && sign != 0) {
@@ -23,14 +23,14 @@ bool isConvex(const Polygon& poly) {
     return true;
 }
 
-float calcLen(const Point& a, const Point& b) {
+float calcLen(const Vertex& a, const Vertex& b) {
     return sqrt(pow((a.x - b.x), 2) + pow((a.y - b.y), 2));
 }
 
 Polygon vertexArrToPoly(const sf::VertexArray& arr) {
     Polygon poly;
     for (int i = 0; i < arr.getVertexCount(); i++) {
-        poly.vertices.push_back({arr[i].position.x, arr[i].position.y, i});
+        poly.vertices.push_back(Vertex(arr[i].position.x, arr[i].position.y, i));
     }
     return poly;
 }
@@ -38,7 +38,28 @@ Polygon vertexArrToPoly(const sf::VertexArray& arr) {
 sf::VertexArray polyToVertexArr(const Polygon& poly) {
     sf::VertexArray arr;
     for (Vertex v : poly.vertices) {
-        arr.append(sf::Vertex({ v.coords.x, v.coords.y }));
+        arr.append(sf::Vertex({ v.x, v.y }));
     }
     return arr;
+}
+
+
+SplittedPoly splitPolygon(const Polygon& poly, const Edge& edgeCutter) {
+    SplittedPoly result;
+    int a = edgeCutter.aID > edgeCutter.bID ? edgeCutter.aID : edgeCutter.bID;
+    int b = edgeCutter.aID < edgeCutter.bID ? edgeCutter.aID : edgeCutter.bID;
+
+    for (int i = 0; i < poly.size(); i++) {
+        if (i > a && i < b) {
+            result.a.vertices.push_back(poly[i]);
+        }
+        else if (i < a || i > b) {
+            result.b.vertices.push_back(poly[i]);
+        }
+        else {
+            result.a.vertices.push_back(poly[i]);
+            result.b.vertices.push_back(poly[i]);
+        }
+    }
+    return result;
 }
