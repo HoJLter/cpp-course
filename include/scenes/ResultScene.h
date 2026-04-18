@@ -1,5 +1,9 @@
 #include "scenes/Scene.h"
+#include "ui/Label.h"
 #include "ui/Button.h"
+#include "algo/Triangulators.h"
+
+
 
 class ResultScene : public Scene {
 private:
@@ -7,15 +11,22 @@ private:
 
 	sf::ConvexShape contour;
 	sf::VertexArray dots;
+
 	Button calculate;
-	Button returnToInitial;
+	Label currentTriangulatorLabel;
+	TriangulatorType curTriangulator;
+	Button nextButton;
+	Button prevButton;
 
 	sf::VertexArray diaArr;
+	Label resultData;
 
 	sf::Clock cooldown;
 	bool isCalcButtonPressed;
 	bool isCalcEnded;
 
+	void nextTriangulator();
+	void prevTriangulator();
 public:
 	ResultScene(sf::Vector2u windowSize, ISceneSwitcher& sceneSwitcher);
 

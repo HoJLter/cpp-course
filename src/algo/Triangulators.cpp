@@ -1,5 +1,5 @@
 #include "algo/Triangulators.h"
-
+#include <set>
 
 void EarTriangulator::triangleImpl(const Polygon& poly, TriangulationResult& result) {
 	if (poly.size() == 3) {
@@ -39,11 +39,7 @@ TriangulationResult EarTriangulator::triangulate(const Polygon& poly) {
 }
 
 
-TriangulationResult RecursiveTriangulator::triangulate(const Polygon& poly) {
-	TriangulationResult result;
-	triangleImpl(poly, result);
-	return result;
-}
+
 
 void RecursiveTriangulator::triangleImpl(const Polygon& poly, TriangulationResult& result) {
 	bool first = true;
@@ -82,4 +78,98 @@ void RecursiveTriangulator::triangleImpl(const Polygon& poly, TriangulationResul
 		}
 	}
 	result = best;
+}
+
+TriangulationResult RecursiveTriangulator::triangulate(const Polygon& poly) {
+	TriangulationResult result;
+	triangleImpl(poly, result);
+	return result;
+}
+
+
+TriangulationResult DynamicTriangulator::triangulate(const Polygon& poly) {
+	TriangulationResult result;
+	triangleImpl(poly, result);
+	return result;
+}
+
+
+void addDiagonalUnique(
+	TriangulationResult& result,
+	std::set<std::pair<int, int>>& used,
+	int a, int b
+) {
+	if (a > b) std::swap(a, b);
+
+	if (used.insert({ a, b }).second) {
+		result.diagonals.push_back(Edge(a, b));
+	}
+}
+
+void restore(int i, int j,
+	const Polygon& poly,
+	const std::vector<std::vector<int>>& split,
+	TriangulationResult& result,
+	std::set<std::pair<int, int>>& used) {
+
+	if (j - i <= 2)
+		return;
+
+	int k = split[i][j];
+	if (k == -1)
+		return;
+
+	if (k != i + 1) {
+		addDiagonalUnique(result, used, poly[i].id, poly[k].id);
+	}
+
+	if (k != j - 1) {
+		addDiagonalUnique(result, used, poly[k].id, poly[j].id);
+	}
+
+	restore(i, k, poly, split, result, used);
+	restore(k, j, poly, split, result, used);
+}
+
+void DynamicTriangulator::triangleImpl(const Polygon& poly, TriangulationResult& result) {
+	int vCount = poly.size();
+	std::vector<std::vector<float>> resultMatrix(
+		vCount, std::vector<float>(vCount, 10000.f)
+	);
+	std::vector<std::vector<int>> splitPoints(
+		vCount, std::vector<int>(vCount, -1)
+	);
+
+
+	for (int segmentLen = 0; segmentLen < vCount; segmentLen++) {
+		for (int i = 0; i + segmentLen < vCount; i++) {
+			int j = i + segmentLen;
+			if (segmentLen < 3) {
+				resultMatrix[i][j] = 0;
+				continue;
+			}
+
+			for (int k = i + 1; k < j; ++k) {
+				float extra = 0.0f;
+
+				if (k != i + 1)
+					extra += calcLen (poly[i], poly[k]);
+
+				if (k != j - 1)
+					extra += calcLen(poly[k], poly[j]);
+
+				float candidate = resultMatrix[i][k] + resultMatrix[k][j] + extra;
+
+				if (candidate < resultMatrix[i][j]) {
+					resultMatrix[i][j] = candidate;
+					splitPoints[i][j] = k;
+				}
+			}
+		}
+	}
+
+	result.diagonalsLen = resultMatrix[0][vCount - 1];
+	std::set<std::pair<int, int>> used;
+
+	restore(0, vCount - 1, poly, splitPoints, result, used);
 }

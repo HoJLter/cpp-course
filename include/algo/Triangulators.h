@@ -1,9 +1,16 @@
 #pragma once
 #include "algo/Geometry.h"
 
+
+enum class TriangulatorType {
+	Ear,
+	Recursive,
+	Dynamic
+};
+
 struct TriangulationResult {
 	std::vector<Edge> diagonals;
-	float diagonalsLen;
+	float diagonalsLen = 0;
 };
 
 class ITriangulator {
@@ -24,4 +31,12 @@ private:
 	void triangleImpl(const Polygon& poly, TriangulationResult& result);
 public:
 	TriangulationResult triangulate(const Polygon& poly) override;
+};	
+
+class DynamicTriangulator : public ITriangulator {
+private:
+	void triangleImpl(const Polygon& poly, TriangulationResult& result);
+public:
+	TriangulationResult triangulate(const Polygon& poly) override;
 };
+
