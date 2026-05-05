@@ -156,3 +156,25 @@ void ResultScene::render(sf::RenderWindow& window) {
 		resultData.render(window);
 	}
 }
+
+class Matrix() {
+	int rows;
+	int cols;
+
+
+	void print() {
+		return rows
+	}
+}
+
+Matrix a;
+a.print();
+
+
+
+
+
+
+Matrix a, b;
+
+Matrix c = a.operator+(b);

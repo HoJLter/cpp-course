@@ -79,7 +79,7 @@ void InputField::update(sf::RenderWindow& window) {
 		isAlarmState = false;
 	}
 
-	if (cursorClock.getElapsedTime().asSeconds() >= 0.8f) {
+	if (cursorClock.getElapsedTime().asSeconds() >= 0.5f) {
 		isCursorVisible = !isCursorVisible;
 		cursorClock.restart();
 	}

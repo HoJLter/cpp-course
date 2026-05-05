@@ -6,7 +6,6 @@
 class InitialScene : public Scene {
 private:
 	Button startButton;
-	Button testButton;
 	Label startLabel;
 
 public:
